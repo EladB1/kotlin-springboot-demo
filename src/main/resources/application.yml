@@ -7,4 +7,5 @@ spring:
       database: demo
       username: ${MONGO_USER}
       password: ${MONGO_PASSWORD}
+      authentication-database: admin
 

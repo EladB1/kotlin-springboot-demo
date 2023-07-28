@@ -1,0 +1,56 @@
+enum Platform {
+    PC,
+    Switch,
+    PS5,
+    PS4,
+    Xbox
+}
+
+enum Status {
+    TODO,
+    InProgress,
+    Failed,
+    Completed
+}
+
+type Game {
+    gameId: ID!
+    name: String!
+    platforms: [Platform!]!
+}
+
+type ChallengeRun {
+    runId: ID!
+    gameId: ID!
+    runName: String!
+    description: String!
+    createdBy: User
+    created: String
+}
+
+type ChallengeRunAttempt {
+    attemptId: ID!
+    runId: ID!
+    status: Status
+    started: String
+    ended: String
+}
+
+type User {
+    userId: ID!
+    username: String!
+    friends: [User]
+    runs: [ChallengeRunAttempt]
+}
+
+type Query {
+    getAllUsers: [User!]!
+    getUserById(userId: ID!): User!
+    getAllGames: [Game!]!
+    getGameById(gameId: ID!): Game!
+}
+
+type Mutation {
+    createGame(name: String!, platforms: [Platform]): Game!
+    addPlatformToGame(gameId: ID!, platform: Platform!): Game!
+}
