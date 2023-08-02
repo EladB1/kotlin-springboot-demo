@@ -45,12 +45,15 @@ type User {
 
 type Query {
     getAllUsers: [User!]!
-    getUserById(userId: ID!): User!
+    getUserById(userId: ID!): User
     getAllGames: [Game!]!
-    getGameById(gameId: ID!): Game!
+    getGameById(gameId: ID!): Game
+    getGameByName(name: String!): Game
 }
 
 type Mutation {
-    createGame(name: String!, platforms: [Platform]): Game!
-    addPlatformToGame(gameId: ID!, platform: Platform!): Game!
+    createGame(name: String!, platforms: [Platform]): Game
+    addPlatformToGame(gameId: ID!, platform: Platform!): Game
+    createUser(username: String!): User
+    addFriend(userId: String!, friendUserId: String!): User
 }

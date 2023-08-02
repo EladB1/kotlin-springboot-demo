@@ -20,6 +20,11 @@ class GameController(val gameService: GameService) {
         return gameService.getGameById(gameId)
     }
 
+    @QueryMapping
+    fun getGameByName(@Argument name: String): Game {
+        return gameService.getByName(name)
+    }
+
     @MutationMapping
     fun createGame(@Argument name: String, @Argument platforms: List<Platform> = emptyList()): Game {
         return gameService.createGame(name, platforms)

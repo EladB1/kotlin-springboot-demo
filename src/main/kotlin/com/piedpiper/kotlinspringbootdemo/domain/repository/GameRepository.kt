@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository
 @Repository
 interface GameRepository : MongoRepository<Game, Int> {
     fun findByGameId(gameId: String): Game?
+    fun findByName(name: String): Game?
 }
