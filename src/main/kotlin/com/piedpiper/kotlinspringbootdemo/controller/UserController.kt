@@ -33,4 +33,9 @@ class UserController(val userService: UserService) {
     fun addFriend(@Argument userId: String, @Argument friendUserId: String): User {
         return userService.addFriend(userId, friendUserId)
     }
+
+    @MutationMapping
+    fun removeFriend(@Argument userId: String, @Argument friendUserId: String): User {
+        return userService.removeFriend(userId, friendUserId)
+    }
 }

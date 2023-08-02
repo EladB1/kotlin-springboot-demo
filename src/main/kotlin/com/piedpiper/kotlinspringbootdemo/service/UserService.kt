@@ -30,10 +30,24 @@ class UserService(val userRepository: UserRepository) {
     fun addFriend(userId: String, friendUserId: String): User {
         var user = this.getUserById(userId)
         var friend = this.getUserById(friendUserId)
-        val friendIds = user.friends.map { frnd: User -> frnd.userId }.toSet()
-        if (friendUserId !in friendIds && friendUserId != userId) {
-            user = user.copy(friends = user.friends + friend)
-            friend = friend.copy(friends = friend.friends + user)
+        if (friendUserId !in user.friendIds && friendUserId != userId) {
+            user = user.copy(friendIds = user.friendIds + friendUserId)
+            friend = friend.copy(friendIds = friend.friendIds + userId)
+            userRepository.saveAll(listOf(user, friend))
+        }
+        return user
+    }
+
+    fun removeFriend(userId: String, friendUserId: String): User {
+        var user = this.getUserById(userId)
+        var friend = this.getUserById(friendUserId)
+        if (friendUserId in user.friendIds) {
+            val userFriendList = user.friendIds.toMutableList()
+            userFriendList.remove(friendUserId)
+            val friendFriendList = friend.friendIds.toMutableList()
+            friendFriendList.remove(userId)
+            user = user.copy(friendIds = userFriendList)
+            friend = friend.copy(friendIds = friendFriendList)
             userRepository.saveAll(listOf(user, friend))
         }
         return user

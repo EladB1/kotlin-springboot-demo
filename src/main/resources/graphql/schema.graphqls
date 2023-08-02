@@ -39,7 +39,7 @@ type ChallengeRunAttempt {
 type User {
     userId: ID!
     username: String!
-    friends: [User]
+    friendIds: [String!]!
     runs: [ChallengeRunAttempt]
 }
 
@@ -55,5 +55,6 @@ type Mutation {
     createGame(name: String!, platforms: [Platform]): Game
     addPlatformToGame(gameId: ID!, platform: Platform!): Game
     createUser(username: String!): User
-    addFriend(userId: String!, friendUserId: String!): User
+    addFriend(userId: ID!, friendUserId: ID!): User
+    removeFriend(userId: ID!, friendUserId: ID!): User
 }
