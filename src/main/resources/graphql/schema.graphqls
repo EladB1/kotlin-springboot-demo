@@ -1,3 +1,5 @@
+scalar DateTime
+
 enum Platform {
     PC,
     Switch,
@@ -24,16 +26,13 @@ type ChallengeRun {
     gameId: ID!
     runName: String!
     description: String!
-    createdBy: User
-    created: String
+    created: DateTime
 }
 
 type ChallengeRunAttempt {
     attemptId: ID!
     runId: ID!
     status: Status
-    started: String
-    ended: String
 }
 
 type User {
@@ -49,6 +48,11 @@ type Query {
     getAllGames: [Game!]!
     getGameById(gameId: ID!): Game
     getGameByName(name: String!): Game
+    getAllChallengeRuns: [ChallengeRun!]!
+    getChallengeRunsByGameId(gameId: ID!): [ChallengeRun]!
+    getChallengeRunsByRunId(runId: ID!): ChallengeRun!
+    getChallengeRunsByName(runName: String!): ChallengeRun!
+
 }
 
 type Mutation {
@@ -57,4 +61,5 @@ type Mutation {
     createUser(username: String!): User
     addFriend(userId: ID!, friendUserId: ID!): User
     removeFriend(userId: ID!, friendUserId: ID!): User
+    createChallengeRun(gameId: ID!, runName: String!, description: String!): ChallengeRun
 }
