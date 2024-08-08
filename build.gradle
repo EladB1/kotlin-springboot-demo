@@ -36,7 +36,10 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: "org.mockito", module: "mockito.core"
+	}
+	testImplementation 'io.mockk:mockk:1.13.12'
 	testImplementation 'io.projectreactor:reactor-test'
 	testImplementation 'org.springframework.graphql:spring-graphql-test'
 	testImplementation 'org.jetbrains.kotlin:kotlin-test'
